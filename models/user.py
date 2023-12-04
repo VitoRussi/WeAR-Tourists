@@ -2,13 +2,14 @@ from db import db
 from sqlalchemy.sql import text
 import uuid
 
+#Classi Utente, Cliente ed Azienda come unica classe, avente un attributo "ruolo", che differenzia tra le due specializzazioni di Utente
 class UserModel(db.Model):
     __tablename__ = 'user'
 
-    id = db.Column(db.String(36), primary_key=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
-    role = db.Column(db.String(15), nullable=False)
-    email = db.Column(db.String(320), nullable=False)
+    id = db.Column(db.String(36), primary_key = True, nullable = False)
+    password = db.Column(db.String(60), nullable = False)
+    role = db.Column(db.String(15), nullable = False)
+    email = db.Column(db.String(320), nullable = False)
     firstname = db.Column(db.String(80))
     lastname = db.Column(db.String(80))
 
@@ -31,6 +32,7 @@ class UserModel(db.Model):
             'role': self.role,
         }
 
+    #method to retrive a json of the object, when it's attributes are in a list
     @classmethod
     def json_from_list(cls, args):
         return {
@@ -51,7 +53,7 @@ class UserModel(db.Model):
                 for key in couple:
                     value = couple[key]
 
-                    self.query.filter_by(id=self.id).update({key: value})
+                    self.query.filter_by(id = self.id).update({key: value})
 
         except Exception as e:
             print("Exception:", e)
@@ -66,18 +68,12 @@ class UserModel(db.Model):
 
     @classmethod
     def find_by_id(cls, _id):
-        return cls.query.filter_by(id=_id).first()
+        return cls.query.filter_by(id = _id).first()
 
     @classmethod
     def find_by_email(cls, _email):
-        return cls.query.filter_by(email=_email).first()
+        return cls.query.filter_by(email = _email).first()
 
     @classmethod
     def find_all(cls):
         return cls.query.all()
-
-    @classmethod
-    def query_example(cls):
-        query = "SELECT * FROM mydb.user"
-        return db.session.execute(text(query)).all()
-
