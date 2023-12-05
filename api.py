@@ -1,7 +1,8 @@
 from flask_restful import Api
 from resources.Root import Root
-from resources.user import UserRegister, UsersList, UserDelete, ProductRegister, ProductsList, ProductDelete, \
-    CategoryRegister, CategoriesList, CategoryDelete, CompanyProducts
+from resources.user import UserRegister, UsersList, UserDelete, CompanyProducts
+from resources.category import CategoryRegister, CategoriesList, CategoryDelete
+from resources.product import ProductRegister, ProductsList, ProductDelete
 
 api = Api()
 

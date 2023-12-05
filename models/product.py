@@ -6,7 +6,7 @@ class ProductModel(db.Model):
 
     id = db.Column(db.String(36), primary_key = True, nullable = False)
     idCompany = db.Column(db.String(36), db.ForeignKey('user.id'), nullable = False)
-    category = db.Column(db.String(80), db.ForeignKey('category.name')), #nullable = False)
+    category = db.Column(db.String(80))#, db.ForeignKey('category.name'), nullable = False)
     name = db.Column(db.String(80), nullable = False)
     description = db.Column(db.String(1024))
     quantity = db.Column(db.Integer)
