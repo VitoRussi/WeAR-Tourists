@@ -1,3 +1,4 @@
+from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 from flask import request
 
@@ -5,6 +6,7 @@ from models.category import CategoryModel
 
 class CategoryRegister(Resource):
     # API POST class Categoria
+    @jwt_required()
     def post(self):
         args = request.json
         categoria = CategoryModel(**args)
@@ -13,6 +15,7 @@ class CategoryRegister(Resource):
 
 class CategoriesList(Resource):
     #API GET class Categoria
+    @jwt_required()
     def get(self):
         categorie = CategoryModel.find_all()
         print(categorie)
@@ -21,6 +24,7 @@ class CategoriesList(Resource):
 
 class CategoryDelete(Resource):
     #API DELETE class Categoria
+    @jwt_required()
     def delete(self):
         args = request.json
         categoria = CategoryModel.find_by_name(args["name"])
