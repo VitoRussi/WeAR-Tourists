@@ -3,6 +3,8 @@ from flask_restful import Resource
 from flask import request
 
 from models.category import CategoryModel
+from models.product import ProductModel
+
 
 class CategoryRegister(Resource):
     # API POST class Categoria
@@ -29,6 +31,8 @@ class CategoryDelete(Resource):
         args = request.json
         categoria = CategoryModel.find_by_name(args["name"])
         if categoria:
+            if len(ProductModel.find_all_by_category(categoria.name)) > 0:
+                return "Category not deleatable, Category has products in it", 403
             categoria.delete_from_db()
             return "Category deleted", 200
         return "Category does not exists", 404

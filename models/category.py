@@ -17,22 +17,27 @@ class CategoryModel(db.Model):
             'name': self.name
         }
 
+    #save category
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
 
+    #get category
     def delete_from_db(self):
         db.session.delete(self)
         db.session.commit()
 
+    #get category by id
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(id = _id).first()
 
+    #get category by name
     @classmethod
     def find_by_name(cls, _name):
         return cls.query.filter_by(name = _name).first()
 
+    #get all categories
     @classmethod
     def find_all(cls):
         return cls.query.all()

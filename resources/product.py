@@ -12,8 +12,8 @@ class ProductRegister(Resource):
     @jwt_required()
     def post(self):
         args = request.json
-        prodotto = ProductModel(args.name, args.description, args.company, args.idCompany, args.category)
-        report = ReportModel(prodotto.id, args.has_json_report, args.has_model)
+        prodotto = ProductModel(args["name"], args["idCompany"], args["category"], args["description"], args["quantity"])
+        report = ReportModel(prodotto.id, args["has_json_report"], args["has_model"])
         if UserModel.find_by_id(prodotto.idCompany):
             if CategoryModel.find_by_name(prodotto.category):
                 prodotto.save_to_db()

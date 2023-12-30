@@ -43,6 +43,7 @@ class UserModel(db.Model):
             'role': args[2]
         }
 
+    #add user
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()

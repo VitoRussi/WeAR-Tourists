@@ -6,12 +6,12 @@ class ProductModel(db.Model):
 
     id = db.Column(db.String(36), primary_key = True, nullable = False)
     idCompany = db.Column(db.String(36), db.ForeignKey('user.id'), nullable = False)
-    category = db.Column(db.String(80), unique = True , nullable = False)
+    category = db.Column(db.String(80), nullable = False)
     name = db.Column(db.String(80), nullable = False)
     description = db.Column(db.String(1024))
     quantity = db.Column(db.Integer)
 
-    def __init__(self, idCompany, category, name, description, quantity):
+    def __init__(self, name, idCompany, category, description, quantity):
         self.idCompany = idCompany
         self.category = category
         self.name = name

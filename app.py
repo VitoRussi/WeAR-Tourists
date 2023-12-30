@@ -15,7 +15,8 @@ cors = CORS()
 def create_app():
     app = Flask(__name__)
     
-    databaseEndpoint = 'mysql://root:changeme@127.0.0.1:3306/mydb'
+    #databaseEndpoint = 'mysql://root:changeme@127.0.0.1:3306/mydb'
+    databaseEndpoint = 'sqlite:///data.db'
 
     app.config['SQLALCHEMY_DATABASE_URI'] = databaseEndpoint
     app.config['SECRET_KEY'] = 'mysecretkey'

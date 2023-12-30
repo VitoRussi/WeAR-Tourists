@@ -18,6 +18,7 @@ api.add_resource(TokenRefresh,'/refresh')
 #User's APIs as Company still to be add
 
 #Users's APIs (List, Delete)
+api.add_resource(UserRegister, '/user/register')
 api.add_resource(UsersList, '/users')
 api.add_resource(UserDelete, '/user/delete')
 
