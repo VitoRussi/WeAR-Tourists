@@ -20,7 +20,6 @@ class CategoriesList(Resource):
     @jwt_required()
     def get(self):
         categorie = CategoryModel.find_all()
-        print(categorie)
         categoria_json = [c.json() for c in categorie]
         return categoria_json, 200
 

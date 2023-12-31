@@ -14,7 +14,7 @@ class ReportModel(db.Model):
     def __init__(self, idProduct, has_json_report, has_model):
         self.id = str(uuid.uuid4())
         self.idProduct = idProduct
-        nome_file = "report" + str(id) + ".json"
+        nome_file = "report" + str(self.id) + ".json"
         self.report_path = "reports/" + nome_file
         self.has_json_report = has_json_report
         self.has_model = has_model
@@ -41,6 +41,11 @@ class ReportModel(db.Model):
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
+    
+            #get product by id
+    @classmethod
+    def find_by_id_product(cls, _id_product):
+        return cls.query.filter_by(idProduct = _id_product).first()
 
     #get all reports
     @classmethod

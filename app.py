@@ -4,13 +4,28 @@ from flask_cors import CORS
 from api import api
 from config.extensions import jwt
 from datetime import timedelta
-
+import pprint
 import pymysql
 
 pymysql.version_info = (1, 4, 6, 'final', 0)
 pymysql.install_as_MySQLdb()
 
 cors = CORS()
+
+
+class LoggingMiddleware(object):
+    def __init__(self, app):
+        self._app = app
+
+    def __call__(self, env, resp):
+        errorlog = env['wsgi.errors']
+        pprint.pprint(('REQUEST', env), stream=errorlog)
+
+        def log_response(status, headers, *args):
+            pprint.pprint(('RESPONSE', status, headers), stream=errorlog)
+            return resp(status, headers, *args)
+
+        return self._app(env, log_response)
 
 def create_app():
     app = Flask(__name__)
@@ -40,4 +55,5 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
+    # app.wsgi_app = LoggingMiddleware(app.wsgi_app)
     app.run(debug = True)

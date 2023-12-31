@@ -1,3 +1,4 @@
+import json
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 from flask import request
@@ -38,20 +39,22 @@ class ProductsList(Resource):
 class ProductByID(Resource):
     #API GET class Prodotto given id
     @jwt_required()
-    def get(self):
-        args = request.json
-        prodotto = ProductModel.find_by_id(args["id"])
+    def get(self,id: str):
+        prodotto = ProductModel.find_by_id(id)
         if prodotto:
-            return prodotto.json(), 200
+            report = ReportModel.find_by_id_product(id)
+            report_json = {}
+            with open(report.report_path, 'r') as f:
+                report_json = json.load(f)
+      
+            return {"product":prodotto.json(), "report":report_json}, 200
         return "Prodotto non trovato", 404
 
 class ProductsByCategory(Resource):
     #API GET class Prodotto for products given their Category
     @jwt_required()
     def get(self):
-        args = request.json
-        prodotti = ProductModel.find_all_by_category(args["category"])
-        print(prodotti)
+        prodotti = ProductModel.find_all_by_category(request.args['category'])
         prodotti_json = [p.json() for p in prodotti]
         return prodotti_json, 200
 

@@ -1,6 +1,7 @@
 from flask_restful import Api
 from resources.Root import Root
 from resources.auth import ClientRegister, Login, Logout, TokenRefresh
+from resources.report import GetProductReport
 from resources.user import UserRegister, UsersList, UserDelete, CompanyProducts
 from resources.category import CategoryRegister, CategoriesList, CategoryDelete
 from resources.product import ProductRegister, ProductsList, ProductDelete, ProductByID, ProductsByCategory
@@ -26,7 +27,7 @@ api.add_resource(UserDelete, '/user/delete')
 api.add_resource(ProductRegister, '/product/register')
 api.add_resource(ProductsList, '/products')
 api.add_resource(CompanyProducts,'/company/products')
-api.add_resource(ProductByID, '/product')
+api.add_resource(ProductByID, '/products/<string:id>')
 api.add_resource(ProductsByCategory,'/products/category')
 api.add_resource(ProductDelete, '/product/delete')
 
@@ -34,3 +35,6 @@ api.add_resource(ProductDelete, '/product/delete')
 api.add_resource(CategoryRegister, '/category/register')
 api.add_resource(CategoriesList, '/categories')
 api.add_resource(CategoryDelete, '/category/delete')
+
+#Report's APIs (GetProductReport)
+api.add_resource(GetProductReport, '/product/report')

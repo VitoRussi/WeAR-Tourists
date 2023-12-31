@@ -15,6 +15,7 @@ class ClientRegister(Resource):
     def post(self):
         data = request.json
 
+
         if UserModel.find_by_email(data.get('email')):
             return {"type": "unauthorized", "message": "The email is alredy connected to an account"}, 400
 
